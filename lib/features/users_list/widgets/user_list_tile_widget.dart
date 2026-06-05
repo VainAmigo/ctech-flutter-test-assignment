@@ -2,12 +2,8 @@ import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 
-class UserListTile extends StatelessWidget {
-  const UserListTile({
-    super.key,
-    required this.user,
-    required this.onTap,
-  });
+class UserListTileWidget extends StatelessWidget {
+  const UserListTileWidget({super.key, required this.user, required this.onTap});
 
   final GitHubUserModel user;
   final VoidCallback onTap;
@@ -15,6 +11,7 @@ class UserListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(12),
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -38,26 +35,13 @@ class UserListTile extends StatelessWidget {
             ),
             const SizedBox(width: 14),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    user.login,
-                    style: const TextStyle(
-                      color: AppColors.primaryText,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'ID: ${user.id}',
-                    style: const TextStyle(
-                      color: AppColors.secondaryText,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
+              child: Text(
+                user.login,
+                style: const TextStyle(
+                  color: AppColors.primaryText,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             const Icon(

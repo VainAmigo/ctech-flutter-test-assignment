@@ -1,3 +1,4 @@
+import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/features/features.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,9 @@ class _UsersListPageState extends State<UsersListPage> {
       ),
       body: Column(
         children: [
-          UsersSearchBar(onChanged: context.read<UsersListCubit>().search),
+          UsersSearchBarWidget(
+            onChanged: context.read<UsersListCubit>().search,
+          ),
           Expanded(
             child: BlocBuilder<UsersListCubit, UsersListState>(
               builder: (context, state) {
@@ -47,7 +50,8 @@ class _UsersListPageState extends State<UsersListPage> {
                     state.users.isEmpty) {
                   return ListView.builder(
                     itemCount: 8,
-                    itemBuilder: (context, index) => const UserSkeletonTile(),
+                    itemBuilder: (context, index) =>
+                        const UserSkeletonTileWidget(),
                   );
                 }
 
@@ -71,14 +75,14 @@ class _UsersListPageState extends State<UsersListPage> {
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: users.length + (state.hasMore ? 2 : 0),
                     separatorBuilder: (context, index) =>
-                        const Divider(height: 1, indent: 16, endIndent: 16),
+                        const SizedBox(height: 4),
                     itemBuilder: (context, index) {
                       if (index >= users.length) {
-                        return const UserSkeletonTile();
+                        return const UserSkeletonTileWidget();
                       }
 
                       final user = users[index];
-                      return UserListTile(
+                      return UserListTileWidget(
                         user: user,
                         onTap: () => _openUserDetail(user),
                       );
@@ -103,15 +107,10 @@ class _UsersListPageState extends State<UsersListPage> {
   }
 
   void _openUserDetail(GitHubUserModel user) {
-    final repository = context.read<AppRepository>();
-
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => BlocProvider(
-          create: (_) => UserDetailCubit(repository)..loadUser(user.login),
-          child: UserDetailPage(login: user.login),
-        ),
-      ),
+    Navigator.pushNamed(
+      context,
+      AppRouter.userDetailPage,
+      arguments: user.login,
     );
   }
 }

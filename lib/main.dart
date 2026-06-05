@@ -31,6 +31,8 @@ class GitHubUsersApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          onGenerateRoute: AppRouter.onGenerateRoute,
+          initialRoute: AppRouter.usersListPage,
           title: 'GitHub Users',
           theme: AppTheme.dark,
           home: const UsersListPage(),

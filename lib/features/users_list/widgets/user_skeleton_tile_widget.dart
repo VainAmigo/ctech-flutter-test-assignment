@@ -1,14 +1,14 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:flutter/material.dart';
 
-class UserSkeletonTile extends StatefulWidget {
-  const UserSkeletonTile({super.key});
+class UserSkeletonTileWidget extends StatefulWidget {
+  const UserSkeletonTileWidget({super.key});
 
   @override
-  State<UserSkeletonTile> createState() => _UserSkeletonTileState();
+  State<UserSkeletonTileWidget> createState() => _UserSkeletonTileWidgetState();
 }
 
-class _UserSkeletonTileState extends State<UserSkeletonTile>
+class _UserSkeletonTileWidgetState extends State<UserSkeletonTileWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
@@ -33,10 +33,7 @@ class _UserSkeletonTileState extends State<UserSkeletonTile>
       animation: _controller,
       builder: (context, child) {
         final opacity = 0.35 + (_controller.value * 0.35);
-        return Opacity(
-          opacity: opacity,
-          child: child,
-        );
+        return Opacity(opacity: opacity, child: child);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -51,28 +48,21 @@ class _UserSkeletonTileState extends State<UserSkeletonTile>
               ),
             ),
             const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 14,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: AppColors.skeleton,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 12,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.skeleton,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ],
+            Container(
+              height: 14,
+              width: 120,
+              decoration: BoxDecoration(
+                color: AppColors.skeleton,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            const Spacer(),
+            Container(
+              height: 24,
+              width: 24,
+              decoration: BoxDecoration(
+                color: AppColors.skeleton,
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ],

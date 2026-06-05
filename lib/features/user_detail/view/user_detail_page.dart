@@ -15,6 +15,17 @@ class UserDetailPage extends StatefulWidget {
 
 class _UserDetailPageState extends State<UserDetailPage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<UserDetailCubit>().loadUser(widget.login);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

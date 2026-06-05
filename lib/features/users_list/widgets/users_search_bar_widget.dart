@@ -1,8 +1,8 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:flutter/material.dart';
 
-class UsersSearchBar extends StatelessWidget {
-  const UsersSearchBar({
+class UsersSearchBarWidget extends StatelessWidget {
+  const UsersSearchBarWidget({
     super.key,
     required this.onChanged,
   });
