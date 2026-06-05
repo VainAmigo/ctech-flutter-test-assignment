@@ -1,4 +1,4 @@
-import 'package:ctech_flutter_test_app/source/models/github_user_model.dart';
+part of 'users_list_cubit.dart';
 
 enum UsersListStatus { initial, loading, success, loadingMore, failure }
 

@@ -1,6 +1,7 @@
-import 'package:ctech_flutter_test_app/features/user_detail/cubit/user_detail_state.dart';
-import 'package:ctech_flutter_test_app/source/repositories/app_repository.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'user_detail_state.dart';
 
 class UserDetailCubit extends Cubit<UserDetailState> {
   UserDetailCubit(this._repository) : super(const UserDetailState());

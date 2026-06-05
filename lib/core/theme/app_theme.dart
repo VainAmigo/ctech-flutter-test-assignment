@@ -1,4 +1,4 @@
-import 'package:ctech_flutter_test_app/core/theme/app_colors.dart';
+import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:flutter/material.dart';
 
 abstract final class AppTheme {
@@ -13,6 +13,7 @@ abstract final class AppTheme {
         onSurface: AppColors.primaryText,
       ),
       appBarTheme: const AppBarTheme(
+        scrolledUnderElevation: 0,
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.primaryText,
         elevation: 0,

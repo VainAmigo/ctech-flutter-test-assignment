@@ -1,10 +1,6 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/cubit/user_detail_cubit.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/cubit/user_detail_state.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/about_section.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/profile_header_card.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/stat_card.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,13 +64,13 @@ class _UserDetailContent extends StatelessWidget {
           children: [
             StatCard(
               icon: Icons.people_outline,
-              value: FormatUtils.compactCount(user.followers),
+              value: CountFormatingUtill.compactCount(user.followers),
               label: 'Followers (Подписчики)',
             ),
             const SizedBox(width: 12),
             StatCard(
               icon: Icons.person_add_alt_1_outlined,
-              value: FormatUtils.compactCount(user.following),
+              value: CountFormatingUtill.compactCount(user.following),
               label: 'Following (Подписки)',
             ),
           ],

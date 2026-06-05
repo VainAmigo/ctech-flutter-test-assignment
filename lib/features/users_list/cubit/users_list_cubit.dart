@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/users_list/cubit/users_list_state.dart';
-import 'package:ctech_flutter_test_app/source/repositories/app_repository.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'users_list_state.dart';
 
 class UsersListCubit extends Cubit<UsersListState> {
   UsersListCubit(this._repository) : super(const UsersListState());
@@ -45,7 +46,9 @@ class UsersListCubit extends Cubit<UsersListState> {
       return;
     }
 
-    emit(state.copyWith(status: UsersListStatus.loadingMore, errorMessage: null));
+    emit(
+      state.copyWith(status: UsersListStatus.loadingMore, errorMessage: null),
+    );
 
     if (state.isSearchMode) {
       await _loadSearch(page: state.searchPage + 1, append: true);
@@ -88,7 +91,9 @@ class UsersListCubit extends Cubit<UsersListState> {
     try {
       final users = await _repository.getUsers(since: since);
       final newUsers = append
-          ? users.where((user) => !state.users.any((u) => u.id == user.id)).toList()
+          ? users
+                .where((user) => !state.users.any((u) => u.id == user.id))
+                .toList()
           : users;
       final updatedUsers = append ? [...state.users, ...newUsers] : newUsers;
 
@@ -119,8 +124,8 @@ class UsersListCubit extends Cubit<UsersListState> {
 
       final newUsers = append
           ? response.items
-              .where((user) => !state.users.any((u) => u.id == user.id))
-              .toList()
+                .where((user) => !state.users.any((u) => u.id == user.id))
+                .toList()
           : response.items;
       final updatedUsers = append ? [...state.users, ...newUsers] : newUsers;
 

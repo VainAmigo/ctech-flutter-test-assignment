@@ -1,7 +1,6 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/info_tile.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 
 class AboutSection extends StatelessWidget {
@@ -33,7 +32,7 @@ class AboutSection extends StatelessWidget {
         ),
       InfoTile(
         icon: Icons.calendar_today_outlined,
-        title: FormatUtils.joinedDate(user.createdAt),
+        title: DateFormatsUtil.joinedDate(user.createdAt),
         subtitle: 'Member since (В команде с)',
       ),
     ];
