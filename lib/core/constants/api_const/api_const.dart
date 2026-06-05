@@ -1,3 +1,4 @@
 class ApiConst {
-  static const String baseUrl = 'https://api.example.com';
+  static const String baseUrl = 'https://api.github.com';
+  static const int usersPerPage = 20;
 }

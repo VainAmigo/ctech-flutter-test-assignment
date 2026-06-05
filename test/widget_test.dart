@@ -1,30 +1,66 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:ctech_flutter_test_app/features/users_list/cubit/users_list_cubit.dart';
+import 'package:ctech_flutter_test_app/features/users_list/view/users_list_page.dart';
+import 'package:ctech_flutter_test_app/network/network.dart';
+import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
+import 'package:ctech_flutter_test_app/source/models/github_user_model.dart';
+import 'package:ctech_flutter_test_app/source/repositories/app_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ctech_flutter_test_app/main.dart';
+class _FakeAppRepository extends AppRepository {
+  _FakeAppRepository() : super(DioClient());
+
+  @override
+  Future<List<GitHubUserModel>> getUsers({
+    int? since,
+    int perPage = 20,
+  }) async {
+    return const [
+      GitHubUserModel(
+        id: 1,
+        login: 'octocat',
+        avatarUrl: '',
+      ),
+    ];
+  }
+
+  @override
+  Future<GitHubUserDetailModel> getUserDetail(String login) async {
+    return GitHubUserDetailModel(
+      id: 1,
+      login: login,
+      avatarUrl: '',
+      name: 'The Octocat',
+      bio: 'GitHub mascot',
+      company: 'GitHub',
+      location: 'San Francisco',
+      blog: 'https://github.blog',
+      followers: 12500,
+      following: 42,
+      createdAt: DateTime(2011, 1, 25),
+    );
+  }
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Users list page shows loaded user', (WidgetTester tester) async {
+    final repository = _FakeAppRepository();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      RepositoryProvider<AppRepository>.value(
+        value: repository,
+        child: BlocProvider(
+          create: (_) => UsersListCubit(repository),
+          child: const MaterialApp(home: UsersListPage()),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('GitHub Users'), findsOneWidget);
+    expect(find.text('octocat'), findsOneWidget);
+    expect(find.text('ID: 1'), findsOneWidget);
   });
 }
