@@ -88,8 +88,6 @@ class _ReposListPageState extends State<ReposListPage> {
               separatorBuilder: (context, index) => const Divider(
                 color: AppColors.border,
                 height: 1,
-                indent: 16,
-                endIndent: 16,
               ),
               itemBuilder: (context, index) {
                 if (index >= state.repos.length) {

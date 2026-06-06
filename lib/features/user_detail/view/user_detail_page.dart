@@ -3,6 +3,7 @@ import 'package:ctech_flutter_test_app/features/features.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class UserDetailPage extends StatefulWidget {
   const UserDetailPage({super.key, required this.login});
@@ -74,22 +75,40 @@ class _UserDetailContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            StatCard(
-              icon: Icons.people_outline,
-              value: CountFormatingUtill.compactCount(user.followers),
-              label: 'Followers (Подписчики)',
+            Expanded(
+              child: StatCard(
+                icon: Icon(
+                  Icons.people_outline,
+                  color: AppColors.secondaryText,
+                  size: 20,
+                ),
+                value: CountFormatingUtill.compactCount(user.followers),
+                label: 'Followers (Подписчики)',
+              ),
             ),
             const SizedBox(width: 12),
-            StatCard(
-              icon: Icons.person_add_alt_1_outlined,
-              value: CountFormatingUtill.compactCount(user.following),
-              label: 'Following (Подписки)',
+            Expanded(
+              child: StatCard(
+                icon: Icon(
+                  Icons.person_add_alt_1_outlined,
+                  color: AppColors.secondaryText,
+                  size: 20,
+                ),
+                value: CountFormatingUtill.compactCount(user.following),
+                label: 'Following (Подписки)',
+              ),
             ),
           ],
         ),
         const SizedBox(height: 16),
         StatCard(
-          icon: Icons.public_outlined,
+          icon: SvgPicture.asset(
+            'assets/icons/repos_icon.svg',
+            colorFilter: const ColorFilter.mode(
+              AppColors.secondaryText,
+              BlendMode.srcIn,
+            ),
+          ),
           value: CountFormatingUtill.compactCount(user.publicRepos),
           label: 'Public Repos (Публичные репозитории)',
           onTap: () => Navigator.pushNamed(
@@ -109,10 +128,7 @@ class _UserDetailContent extends StatelessWidget {
 }
 
 class _ErrorView extends StatelessWidget {
-  const _ErrorView({
-    required this.message,
-    required this.onRetry,
-  });
+  const _ErrorView({required this.message, required this.onRetry});
 
   final String? message;
   final VoidCallback onRetry;
@@ -130,15 +146,9 @@ class _ErrorView extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
-            Text(
-              message ?? 'Unknown error',
-              textAlign: TextAlign.center,
-            ),
+            Text(message ?? 'Unknown error', textAlign: TextAlign.center),
             const SizedBox(height: 16),
-            FilledButton(
-              onPressed: onRetry,
-              child: const Text('Повторить'),
-            ),
+            FilledButton(onPressed: onRetry, child: const Text('Повторить')),
           ],
         ),
       ),

@@ -42,12 +42,15 @@ class AboutSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'About',
-            style: TextStyle(
-              color: AppColors.primaryText,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            child: const Text(
+              'About',
+              style: TextStyle(
+                color: AppColors.primaryText,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           for (var i = 0; i < items.length; i++) ...[

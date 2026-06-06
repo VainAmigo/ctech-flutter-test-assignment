@@ -11,6 +11,7 @@ class ProfileHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionCard(
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           Stack(
