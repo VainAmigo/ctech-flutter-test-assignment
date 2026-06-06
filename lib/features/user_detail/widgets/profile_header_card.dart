@@ -53,11 +53,11 @@ class ProfileHeaderCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            '@${user.login}',
-            style: const TextStyle(
-              color: AppColors.accent,
-              fontSize: 15,
+          GestureDetector(
+            onTap: () => _launchURL(user.htmlUrl),
+            child: Text(
+              '@${user.login}',
+              style: const TextStyle(color: AppColors.accent, fontSize: 15),
             ),
           ),
           if (user.bio != null && user.bio!.isNotEmpty) ...[
@@ -65,41 +65,34 @@ class ProfileHeaderCard extends StatelessWidget {
             Text(
               user.bio!,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.secondaryText,
-                fontSize: 14,
-                height: 1.5,
-              ),
+              style: const TextStyle(color: AppColors.secondaryText),
             ),
           ],
           const SizedBox(height: 18),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _TagChip(
-                icon: Icons.code,
-                label: 'Developer',
-              ),
-              if (user.location != null && user.location!.isNotEmpty) ...[
+          if (user.location != null && user.location!.isNotEmpty) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 const SizedBox(width: 10),
                 _TagChip(
                   icon: Icons.location_on_outlined,
                   label: user.location!,
                 ),
               ],
-            ],
-          ),
+            ),
+          ],
         ],
       ),
     );
   }
+
+  void _launchURL(String url) {
+    AppLaunch.launchURL(url);
+  }
 }
 
 class _TagChip extends StatelessWidget {
-  const _TagChip({
-    required this.icon,
-    required this.label,
-  });
+  const _TagChip({required this.icon, required this.label});
 
   final IconData icon;
   final String label;
@@ -119,10 +112,7 @@ class _TagChip extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(
-              color: AppColors.primaryText,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: AppColors.primaryText, fontSize: 12),
           ),
         ],
       ),

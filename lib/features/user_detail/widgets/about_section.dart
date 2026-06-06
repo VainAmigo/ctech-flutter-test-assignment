@@ -29,6 +29,7 @@ class AboutSection extends StatelessWidget {
           title: user.blog!,
           subtitle: 'Website (Веб-сайт)',
           titleColor: AppColors.accent,
+          onTap: () => _launchURL(user.blog!),
         ),
       InfoTile(
         icon: Icons.calendar_today_outlined,
@@ -57,5 +58,9 @@ class AboutSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _launchURL(String url) {
+    AppLaunch.launchURL(url);
   }
 }

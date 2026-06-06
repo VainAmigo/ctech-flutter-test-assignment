@@ -38,7 +38,10 @@ class _FakeAppRepository extends AppRepository {
       blog: 'https://github.blog',
       followers: 12500,
       following: 42,
+      publicRepos: 8,
       createdAt: DateTime(2011, 1, 25),
+      htmlUrl: 'https://api.github.com/users/octocat',
+      reposUrl: 'https://api.github.com/users/octocat/repos',
     );
   }
 }

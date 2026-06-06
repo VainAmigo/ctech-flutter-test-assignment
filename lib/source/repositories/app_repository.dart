@@ -56,4 +56,26 @@ class AppRepository {
       response.data as Map<String, dynamic>,
     );
   }
+
+  Future<List<GitHubRepoModel>> getUserRepos({
+    required String reposUrl,
+    required int page,
+    int perPage = ApiConst.reposPerPage,
+  }) async {
+    final response = await _dioClient.get(
+      reposUrl,
+      queryParameters: {
+        'per_page': perPage,
+        'page': page,
+        'sort': 'updated',
+      },
+    );
+
+    final data = response.data as List<dynamic>;
+    return data
+        .map(
+          (item) => GitHubRepoModel.fromJson(item as Map<String, dynamic>),
+        )
+        .toList();
+  }
 }

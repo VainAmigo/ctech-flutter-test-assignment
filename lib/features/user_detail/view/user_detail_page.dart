@@ -72,6 +72,7 @@ class _UserDetailContent extends StatelessWidget {
         ProfileHeaderCard(user: user),
         const SizedBox(height: 16),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             StatCard(
               icon: Icons.people_outline,
@@ -85,6 +86,20 @@ class _UserDetailContent extends StatelessWidget {
               label: 'Following (Подписки)',
             ),
           ],
+        ),
+        const SizedBox(height: 16),
+        StatCard(
+          icon: Icons.public_outlined,
+          value: CountFormatingUtill.compactCount(user.publicRepos),
+          label: 'Public Repos (Публичные репозитории)',
+          onTap: () => Navigator.pushNamed(
+            context,
+            AppRouter.reposListPage,
+            arguments: ReposListPageArgs(
+              login: user.login,
+              reposUrl: user.reposUrl,
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         AboutSection(user: user),

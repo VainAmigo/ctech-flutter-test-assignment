@@ -15,7 +15,10 @@ class GitHubUserDetailModel {
     required this.blog,
     required this.followers,
     required this.following,
+    required this.publicRepos,
     required this.createdAt,
+    required this.htmlUrl,
+    required this.reposUrl,
   });
 
   factory GitHubUserDetailModel.fromJson(Map<String, dynamic> json) => _$GitHubUserDetailModelFromJson(json);
@@ -31,7 +34,10 @@ class GitHubUserDetailModel {
   final String? blog;
   final int followers;
   final int following;
+  final int publicRepos;
   final DateTime createdAt;
+  final String htmlUrl;
+  final String reposUrl;
 
   String get displayName =>
       (name != null && name!.isNotEmpty) ? name! : login;

@@ -19,7 +19,10 @@ GitHubUserDetailModel _$GitHubUserDetailModelFromJson(
   blog: json['blog'] as String?,
   followers: (json['followers'] as num).toInt(),
   following: (json['following'] as num).toInt(),
+  publicRepos: (json['public_repos'] as num).toInt(),
   createdAt: DateTime.parse(json['created_at'] as String),
+  htmlUrl: json['html_url'] as String,
+  reposUrl: json['repos_url'] as String,
 );
 
 Map<String, dynamic> _$GitHubUserDetailModelToJson(
@@ -35,5 +38,8 @@ Map<String, dynamic> _$GitHubUserDetailModelToJson(
   'blog': instance.blog,
   'followers': instance.followers,
   'following': instance.following,
+  'public_repos': instance.publicRepos,
   'created_at': instance.createdAt.toIso8601String(),
+  'html_url': instance.htmlUrl,
+  'repos_url': instance.reposUrl,
 };

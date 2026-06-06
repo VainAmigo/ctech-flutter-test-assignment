@@ -29,6 +29,9 @@ class GitHubUsersApp extends StatelessWidget {
           BlocProvider<UserDetailCubit>(
             create: (_) => UserDetailCubit(repository),
           ),
+          BlocProvider<ReposListCubit>(
+            create: (_) => ReposListCubit(repository),
+          ),
         ],
         child: MaterialApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
