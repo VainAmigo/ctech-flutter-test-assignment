@@ -5,6 +5,7 @@ import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 void main() {
   final dioClient = DioClient();
   final repository = AppRepository(dioClient);
@@ -21,24 +22,13 @@ class GitHubUsersApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider<AppRepository>.value(
       value: repository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<UsersListCubit>(
-            create: (_) => UsersListCubit(repository),
-          ),
-          BlocProvider<UserDetailCubit>(
-            create: (_) => UserDetailCubit(repository),
-          ),
-          BlocProvider<ReposListCubit>(
-            create: (_) => ReposListCubit(repository),
-          ),
-        ],
+      child: BlocProvider<UsersListCubit>(
+        create: (_) => UsersListCubit(repository),
         child: MaterialApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: AppRouter.usersListPage,
+          home: const UsersListPage(),
           title: 'GitHub Users',
           theme: AppTheme.dark,
-          home: const UsersListPage(),
         ),
       ),
     );

@@ -64,6 +64,5 @@ void main() {
 
     expect(find.text('GitHub Users'), findsOneWidget);
     expect(find.text('octocat'), findsOneWidget);
-    expect(find.text('ID: 1'), findsOneWidget);
   });
 }

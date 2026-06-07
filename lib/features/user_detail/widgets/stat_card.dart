@@ -1,4 +1,5 @@
-import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/core/theme/app_colors.dart';
+import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
 import 'package:flutter/material.dart';
 
 class StatCard extends StatelessWidget {
@@ -19,14 +20,9 @@ class StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
+      borderRadius: BorderRadius.circular(10),
+      child: SectionCard(
         padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.border),
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +31,7 @@ class StatCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppColors.surfaceLight,
                   shape: BoxShape.circle,
                 ),
@@ -76,7 +72,7 @@ class StatCard extends StatelessWidget {
                   ],
                 ),
                 if (onTap != null)
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: AppColors.secondaryText,
                     size: 16,

@@ -17,10 +17,11 @@ class UserDetailState {
     UserDetailStatus? status,
     GitHubUserDetailModel? user,
     String? errorMessage,
+    bool clearUser = false,
   }) {
     return UserDetailState(
       status: status ?? this.status,
-      user: user ?? this.user,
+      user: clearUser ? null : (user ?? this.user),
       errorMessage: errorMessage,
     );
   }

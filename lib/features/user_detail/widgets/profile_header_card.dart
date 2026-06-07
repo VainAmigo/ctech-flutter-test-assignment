@@ -1,6 +1,6 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/features.dart';
-import 'package:ctech_flutter_test_app/source/source.dart';
+import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
+import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeaderCard extends StatelessWidget {
@@ -17,21 +17,12 @@ class ProfileHeaderCard extends StatelessWidget {
           Stack(
             alignment: Alignment.bottomRight,
             children: [
-              CircleAvatar(
+              UserAvatar(
+                avatarUrl: user.avatarUrl,
+                login: user.login,
                 radius: 52,
-                backgroundColor: AppColors.surfaceLight,
-                backgroundImage: user.avatarUrl.isNotEmpty
-                    ? NetworkImage(user.avatarUrl)
-                    : null,
-                child: user.avatarUrl.isEmpty
-                    ? Text(
-                        user.login[0].toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    : null,
+                fallbackFontSize: 28,
+                fallbackFontWeight: FontWeight.w700,
               ),
               Container(
                 width: 24,
@@ -55,7 +46,7 @@ class ProfileHeaderCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           GestureDetector(
-            onTap: () => _launchURL(user.htmlUrl),
+            onTap: () => AppLaunch.launchURL(user.htmlUrl),
             child: Text(
               '@${user.login}',
               style: const TextStyle(color: AppColors.accent, fontSize: 15),
@@ -69,52 +60,6 @@ class ProfileHeaderCard extends StatelessWidget {
               style: const TextStyle(color: AppColors.secondaryText),
             ),
           ],
-          const SizedBox(height: 18),
-          if (user.location != null && user.location!.isNotEmpty) ...[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(width: 10),
-                _TagChip(
-                  icon: Icons.location_on_outlined,
-                  label: user.location!,
-                ),
-              ],
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  void _launchURL(String url) {
-    AppLaunch.launchURL(url);
-  }
-}
-
-class _TagChip extends StatelessWidget {
-  const _TagChip({required this.icon, required this.label});
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceLight,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: AppColors.secondaryText),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(color: AppColors.primaryText, fontSize: 12),
-          ),
         ],
       ),
     );

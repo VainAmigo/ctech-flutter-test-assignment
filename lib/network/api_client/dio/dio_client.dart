@@ -1,12 +1,11 @@
-import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/network/network.dart';
+import 'package:ctech_flutter_test_app/core/constants/api_const/api_const.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class DioClient {
   late final Dio _dio;
 
-  DioClient({PreferencesStorage? storage}) {
+  DioClient() {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiConst.baseUrl,

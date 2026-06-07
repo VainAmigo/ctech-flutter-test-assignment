@@ -1,6 +1,7 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/features.dart';
-import 'package:ctech_flutter_test_app/source/source.dart';
+import 'package:ctech_flutter_test_app/features/user_detail/widgets/info_tile.dart';
+import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
+import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
 import 'package:flutter/material.dart';
 
 class AboutSection extends StatelessWidget {
@@ -29,7 +30,7 @@ class AboutSection extends StatelessWidget {
           title: user.blog!,
           subtitle: 'Website (Веб-сайт)',
           titleColor: AppColors.accent,
-          onTap: () => _launchURL(user.blog!),
+          onTap: () => AppLaunch.launchURL(user.blog!),
         ),
       InfoTile(
         icon: Icons.calendar_today_outlined,
@@ -61,9 +62,5 @@ class AboutSection extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _launchURL(String url) {
-    AppLaunch.launchURL(url);
   }
 }

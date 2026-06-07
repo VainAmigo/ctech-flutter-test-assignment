@@ -22,11 +22,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +41,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
           }
 
           if (state.status == UserDetailStatus.failure || state.user == null) {
-            return _ErrorView(
+            return LoadErrorWidget(
+              title: 'Не удалось загрузить профиль',
               message: state.errorMessage,
               onRetry: () =>
                   context.read<UserDetailCubit>().loadUser(widget.login),
@@ -122,36 +118,8 @@ class _UserDetailContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         AboutSection(user: user),
+        const SizedBox(height: 16),
       ],
-    );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.message, required this.onRetry});
-
-  final String? message;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Не удалось загрузить профиль',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Text(message ?? 'Unknown error', textAlign: TextAlign.center),
-            const SizedBox(height: 16),
-            FilledButton(onPressed: onRetry, child: const Text('Повторить')),
-          ],
-        ),
-      ),
     );
   }
 }

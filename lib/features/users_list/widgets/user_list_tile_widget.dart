@@ -1,5 +1,5 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/source/source.dart';
+import 'package:ctech_flutter_test_app/source/models/github_user_model.dart';
 import 'package:flutter/material.dart';
 
 class UserListTileWidget extends StatelessWidget {
@@ -17,21 +17,9 @@ class UserListTileWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: AppColors.surfaceLight,
-              backgroundImage: user.avatarUrl.isNotEmpty
-                  ? NetworkImage(user.avatarUrl)
-                  : null,
-              child: user.avatarUrl.isEmpty
-                  ? Text(
-                      user.login[0].toUpperCase(),
-                      style: const TextStyle(
-                        color: AppColors.primaryText,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  : null,
+            UserAvatar(
+              avatarUrl: user.avatarUrl,
+              login: user.login,
             ),
             const SizedBox(width: 14),
             Expanded(

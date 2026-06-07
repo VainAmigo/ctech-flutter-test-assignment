@@ -18,8 +18,7 @@ class NetworkClient {
       (element) =>
           element == ConnectivityResult.mobile ||
           element == ConnectivityResult.ethernet ||
-          element == ConnectivityResult.wifi ||
-          element == ConnectivityResult.none,
+          element == ConnectivityResult.wifi,
     );
   }
 }

@@ -9,7 +9,13 @@ class UserDetailCubit extends Cubit<UserDetailState> {
   final AppRepository _repository;
 
   Future<void> loadUser(String login) async {
-    emit(state.copyWith(status: UserDetailStatus.loading, errorMessage: null));
+    emit(
+      state.copyWith(
+        status: UserDetailStatus.loading,
+        errorMessage: null,
+        clearUser: true,
+      ),
+    );
 
     try {
       final user = await _repository.getUserDetail(login);

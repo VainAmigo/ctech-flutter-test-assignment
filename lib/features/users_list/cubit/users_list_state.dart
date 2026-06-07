@@ -23,8 +23,6 @@ class UsersListState {
   final String searchQuery;
   final String? errorMessage;
 
-  List<GitHubUserModel> get visibleUsers => users;
-
   UsersListState copyWith({
     UsersListStatus? status,
     List<GitHubUserModel>? users,
