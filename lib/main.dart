@@ -1,13 +1,15 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/features/features.dart';
-import 'package:ctech_flutter_test_app/features/settings/data/locale_repository.dart';
 import 'package:ctech_flutter_test_app/l10n/app_localizations.dart';
 import 'package:ctech_flutter_test_app/network/network.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsBinding widgetsFlutterBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsFlutterBinding);
   final dioClient = DioClient();
   final connectivityService = ConnectivityService();
   final repository = AppRepository(dioClient, connectivityService);
@@ -22,7 +24,7 @@ void main() {
   );
 }
 
-class GitHubUsersApp extends StatelessWidget {
+class GitHubUsersApp extends StatefulWidget {
   const GitHubUsersApp({
     super.key,
     required this.repository,
@@ -35,16 +37,33 @@ class GitHubUsersApp extends StatelessWidget {
   final LocaleRepository localeRepository;
 
   @override
+  State<GitHubUsersApp> createState() => _GitHubUsersAppState();
+}
+
+class _GitHubUsersAppState extends State<GitHubUsersApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    _removeSplash();
+  }
+
+  Future<void> _removeSplash() async {
+    await Future.delayed(const Duration(seconds: 3));
+    FlutterNativeSplash.remove();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AppRepository>.value(
-      value: repository,
+      value: widget.repository,
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => LocaleCubit(localeRepository)..load(),
+            create: (_) => LocaleCubit(widget.localeRepository)..load(),
           ),
           BlocProvider(
-            create: (_) => UsersListCubit(repository),
+            create: (_) => UsersListCubit(widget.repository),
           ),
         ],
         child: BlocBuilder<LocaleCubit, LocaleState>(
@@ -59,7 +78,7 @@ class GitHubUsersApp extends StatelessWidget {
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               builder: (context, child) => ConnectivityListener(
-                connectivityService: connectivityService,
+                connectivityService: widget.connectivityService,
                 child: child ?? const SizedBox.shrink(),
               ),
             );
