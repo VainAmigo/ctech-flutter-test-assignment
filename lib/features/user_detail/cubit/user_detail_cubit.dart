@@ -13,20 +13,26 @@ class UserDetailCubit extends Cubit<UserDetailState> {
     emit(
       state.copyWith(
         status: UserDetailStatus.loading,
-        errorMessage: null,
         clearUser: true,
+        clearError: true,
       ),
     );
 
     try {
       final user = await _repository.getUserDetail(login);
-      emit(state.copyWith(status: UserDetailStatus.success, user: user));
+      emit(
+        state.copyWith(
+          status: UserDetailStatus.success,
+          user: user,
+          clearError: true,
+        ),
+      );
     } catch (error) {
       NetworkErrorMapper.notifyIfNoInternet(error);
       emit(
         state.copyWith(
           status: UserDetailStatus.failure,
-          errorMessage: NetworkErrorMapper.message(error),
+          error: error,
         ),
       );
     }

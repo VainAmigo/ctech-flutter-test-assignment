@@ -9,7 +9,7 @@ class ReposListState {
     this.reposUrl,
     this.page = 1,
     this.hasMore = true,
-    this.errorMessage,
+    this.error,
   });
 
   final ReposListStatus status;
@@ -17,7 +17,7 @@ class ReposListState {
   final String? reposUrl;
   final int page;
   final bool hasMore;
-  final String? errorMessage;
+  final Object? error;
 
   ReposListState copyWith({
     ReposListStatus? status,
@@ -25,7 +25,8 @@ class ReposListState {
     String? reposUrl,
     int? page,
     bool? hasMore,
-    String? errorMessage,
+    Object? error,
+    bool clearError = false,
   }) {
     return ReposListState(
       status: status ?? this.status,
@@ -33,7 +34,7 @@ class ReposListState {
       reposUrl: reposUrl ?? this.reposUrl,
       page: page ?? this.page,
       hasMore: hasMore ?? this.hasMore,
-      errorMessage: errorMessage,
+      error: clearError ? null : (error ?? this.error),
     );
   }
 }

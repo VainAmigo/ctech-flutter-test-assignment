@@ -17,7 +17,7 @@ class ReposListCubit extends Cubit<ReposListState> {
         reposUrl: reposUrl,
         page: 1,
         hasMore: true,
-        errorMessage: null,
+        clearError: true,
       ),
     );
     await _loadPage(page: 1, append: false);
@@ -38,7 +38,7 @@ class ReposListCubit extends Cubit<ReposListState> {
     }
 
     emit(
-      state.copyWith(status: ReposListStatus.loadingMore, errorMessage: null),
+      state.copyWith(status: ReposListStatus.loadingMore, clearError: true),
     );
     await _loadPage(page: state.page + 1, append: true);
   }
@@ -63,6 +63,7 @@ class ReposListCubit extends Cubit<ReposListState> {
           repos: updatedRepos,
           page: page,
           hasMore: repos.length >= ApiConst.reposPerPage,
+          clearError: true,
         ),
       );
     } catch (error) {
@@ -70,7 +71,7 @@ class ReposListCubit extends Cubit<ReposListState> {
       emit(
         state.copyWith(
           status: append ? ReposListStatus.success : ReposListStatus.failure,
-          errorMessage: NetworkErrorMapper.message(error),
+          error: error,
         ),
       );
     }

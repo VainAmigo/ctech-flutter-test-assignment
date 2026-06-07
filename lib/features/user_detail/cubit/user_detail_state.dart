@@ -6,23 +6,24 @@ class UserDetailState {
   const UserDetailState({
     this.status = UserDetailStatus.initial,
     this.user,
-    this.errorMessage,
+    this.error,
   });
 
   final UserDetailStatus status;
   final GitHubUserDetailModel? user;
-  final String? errorMessage;
+  final Object? error;
 
   UserDetailState copyWith({
     UserDetailStatus? status,
     GitHubUserDetailModel? user,
-    String? errorMessage,
+    Object? error,
     bool clearUser = false,
+    bool clearError = false,
   }) {
     return UserDetailState(
       status: status ?? this.status,
       user: clearUser ? null : (user ?? this.user),
-      errorMessage: errorMessage,
+      error: clearError ? null : (error ?? this.error),
     );
   }
 }

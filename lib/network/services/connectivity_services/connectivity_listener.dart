@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:ctech_flutter_test_app/network/network.dart';
 import 'package:flutter/material.dart';
 
@@ -37,12 +38,15 @@ class _ConnectivityListenerState extends State<ConnectivityListener> {
   }
 
   void _onConnectivityChanged(List<ConnectivityResult> result) {
+    if (!mounted) return;
+
     final isConnected = widget.connectivityService.isConnectedResult(result);
+    final l10n = context.l10n;
 
     if (_wasConnected && !isConnected) {
-      AppMessenger.showError('Нет подключения к интернету');
+      AppMessenger.showError(l10n.noInternetConnection);
     } else if (!_wasConnected && isConnected) {
-      AppMessenger.showSuccess('Подключение к интернету восстановлено');
+      AppMessenger.showSuccess(l10n.internetConnectionRestored);
     }
 
     _wasConnected = isConnected;

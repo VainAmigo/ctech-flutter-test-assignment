@@ -11,7 +11,7 @@ class UsersListState {
     this.isSearchMode = false,
     this.hasMore = true,
     this.searchQuery = '',
-    this.errorMessage,
+    this.error,
   });
 
   final UsersListStatus status;
@@ -21,7 +21,7 @@ class UsersListState {
   final bool isSearchMode;
   final bool hasMore;
   final String searchQuery;
-  final String? errorMessage;
+  final Object? error;
 
   UsersListState copyWith({
     UsersListStatus? status,
@@ -31,8 +31,9 @@ class UsersListState {
     bool? isSearchMode,
     bool? hasMore,
     String? searchQuery,
-    String? errorMessage,
+    Object? error,
     bool clearSince = false,
+    bool clearError = false,
   }) {
     return UsersListState(
       status: status ?? this.status,
@@ -42,7 +43,7 @@ class UsersListState {
       isSearchMode: isSearchMode ?? this.isSearchMode,
       hasMore: hasMore ?? this.hasMore,
       searchQuery: searchQuery ?? this.searchQuery,
-      errorMessage: errorMessage,
+      error: clearError ? null : (error ?? this.error),
     );
   }
 }

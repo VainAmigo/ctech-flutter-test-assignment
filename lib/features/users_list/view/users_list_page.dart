@@ -1,6 +1,7 @@
 import 'package:ctech_flutter_test_app/components/components.dart';
 import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,12 +33,22 @@ class _UsersListPageState extends State<UsersListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'GitHub Users',
-          style: TextStyle(fontWeight: FontWeight.w700),
+        title: Text(
+          l10n.appTitle,
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
+        actions: [
+          IconButton(
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRouter.settingsPage),
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: l10n.settings,
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -59,14 +70,14 @@ class _UsersListPageState extends State<UsersListPage> {
                 if (state.status == UsersListStatus.failure &&
                     state.users.isEmpty) {
                   return LoadErrorWidget(
-                    title: 'Ошибка загрузки',
-                    message: state.errorMessage,
+                    title: l10n.loadError,
+                    message: NetworkErrorMapper.message(state.error),
                     onRetry: () => context.read<UsersListCubit>().refresh(),
                   );
                 }
 
                 if (state.users.isEmpty) {
-                  return const Center(child: Text('Пользователи не найдены'));
+                  return Center(child: Text(l10n.usersNotFound));
                 }
 
                 return RefreshIndicator(

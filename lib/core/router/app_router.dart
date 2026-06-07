@@ -11,6 +11,7 @@ final class AppRouter {
   static const usersListPage = '/users-list-page';
   static const userDetailPage = '/user-detail-page';
   static const reposListPage = '/repos-list-page';
+  static const settingsPage = '/settings-page';
 
   static Route<void> onGenerateRoute(RouteSettings settings) {
     return switch (settings.name) {
@@ -37,6 +38,10 @@ final class AppRouter {
             ),
           );
         },
+      ),
+      settingsPage => platformRoute(
+        settings: settings,
+        builder: (_) => const SettingsPage(),
       ),
       _ => throw Exception(
         'No builder specified for route named: [${settings.name}]',

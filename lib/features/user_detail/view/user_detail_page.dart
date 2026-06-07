@@ -1,6 +1,7 @@
 import 'package:ctech_flutter_test_app/components/components.dart';
 import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,8 +46,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
           if (state.status == UserDetailStatus.failure || state.user == null) {
             return LoadErrorWidget(
-              title: 'Не удалось загрузить профиль',
-              message: state.errorMessage,
+              title: l10n.profileLoadError,
+              message: NetworkErrorMapper.message(state.error),
               onRetry: () =>
                   context.read<UserDetailCubit>().loadUser(widget.login),
             );
@@ -64,6 +67,8 @@ class _UserDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -80,7 +85,7 @@ class _UserDetailContent extends StatelessWidget {
                   size: 20,
                 ),
                 value: CountFormatingUtill.compactCount(user.followers),
-                label: 'Followers (Подписчики)',
+                label: l10n.followers,
               ),
             ),
             const SizedBox(width: 12),
@@ -92,7 +97,7 @@ class _UserDetailContent extends StatelessWidget {
                   size: 20,
                 ),
                 value: CountFormatingUtill.compactCount(user.following),
-                label: 'Following (Подписки)',
+                label: l10n.following,
               ),
             ),
           ],
@@ -107,7 +112,7 @@ class _UserDetailContent extends StatelessWidget {
             ),
           ),
           value: CountFormatingUtill.compactCount(user.publicRepos),
-          label: 'Public Repos (Публичные репозитории)',
+          label: l10n.publicRepos,
           onTap: () => Navigator.pushNamed(
             context,
             AppRouter.reposListPage,

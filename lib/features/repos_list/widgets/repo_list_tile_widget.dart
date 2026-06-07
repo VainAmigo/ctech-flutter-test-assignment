@@ -1,4 +1,5 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 
@@ -44,9 +45,9 @@ class RepoListTileWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: AppColors.border),
                     ),
-                    child: const Text(
-                      'Fork',
-                      style: TextStyle(
+                    child: Text(
+                      context.l10n.fork,
+                      style: const TextStyle(
                         color: AppColors.secondaryText,
                         fontSize: 11,
                       ),

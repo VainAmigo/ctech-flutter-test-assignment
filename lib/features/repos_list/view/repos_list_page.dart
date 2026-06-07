@@ -1,6 +1,7 @@
-import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/components/components.dart';
+import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,6 +50,8 @@ class _ReposListPageState extends State<ReposListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -56,7 +59,7 @@ class _ReposListPageState extends State<ReposListPage> {
           icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          'Repos · ${widget.login}',
+          l10n.reposTitle(widget.login),
           style: const TextStyle(fontWeight: FontWeight.w700),
         ),
       ),
@@ -71,14 +74,14 @@ class _ReposListPageState extends State<ReposListPage> {
 
           if (state.status == ReposListStatus.failure && state.repos.isEmpty) {
             return LoadErrorWidget(
-              title: 'Не удалось загрузить репозитории',
-              message: state.errorMessage,
+              title: l10n.reposLoadError,
+              message: NetworkErrorMapper.message(state.error),
               onRetry: () => context.read<ReposListCubit>().refresh(),
             );
           }
 
           if (state.repos.isEmpty) {
-            return const Center(child: Text('Репозитории не найдены'));
+            return Center(child: Text(l10n.reposNotFound));
           }
 
           return RefreshIndicator(

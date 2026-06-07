@@ -23,7 +23,7 @@ class UsersListCubit extends Cubit<UsersListState> {
         searchQuery: '',
         isSearchMode: false,
         searchPage: 1,
-        errorMessage: null,
+        clearError: true,
         clearSince: true,
       ),
     );
@@ -47,7 +47,7 @@ class UsersListCubit extends Cubit<UsersListState> {
     }
 
     emit(
-      state.copyWith(status: UsersListStatus.loadingMore, errorMessage: null),
+      state.copyWith(status: UsersListStatus.loadingMore, clearError: true),
     );
 
     if (state.isSearchMode) {
@@ -80,7 +80,7 @@ class UsersListCubit extends Cubit<UsersListState> {
         isSearchMode: true,
         searchPage: 1,
         hasMore: true,
-        errorMessage: null,
+        clearError: true,
         clearSince: true,
       ),
     );
@@ -103,6 +103,7 @@ class UsersListCubit extends Cubit<UsersListState> {
           users: updatedUsers,
           since: updatedUsers.isEmpty ? since : updatedUsers.last.id,
           hasMore: users.length >= ApiConst.usersPerPage,
+          clearError: true,
         ),
       );
     } catch (error) {
@@ -110,7 +111,7 @@ class UsersListCubit extends Cubit<UsersListState> {
       emit(
         state.copyWith(
           status: append ? UsersListStatus.success : UsersListStatus.failure,
-          errorMessage: NetworkErrorMapper.message(error),
+          error: error,
         ),
       );
     }
@@ -136,6 +137,7 @@ class UsersListCubit extends Cubit<UsersListState> {
           users: updatedUsers,
           searchPage: page,
           hasMore: response.items.length >= ApiConst.usersPerPage,
+          clearError: true,
         ),
       );
     } catch (error) {
@@ -143,7 +145,7 @@ class UsersListCubit extends Cubit<UsersListState> {
       emit(
         state.copyWith(
           status: append ? UsersListStatus.success : UsersListStatus.failure,
-          errorMessage: NetworkErrorMapper.message(error),
+          error: error,
         ),
       );
     }

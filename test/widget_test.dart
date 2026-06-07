@@ -1,5 +1,8 @@
+import 'package:ctech_flutter_test_app/features/settings/cubit/locale_cubit.dart';
+import 'package:ctech_flutter_test_app/features/settings/data/locale_repository.dart';
 import 'package:ctech_flutter_test_app/features/users_list/cubit/users_list_cubit.dart';
 import 'package:ctech_flutter_test_app/features/users_list/view/users_list_page.dart';
+import 'package:ctech_flutter_test_app/l10n/app_localizations.dart';
 import 'package:ctech_flutter_test_app/network/network.dart';
 import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
 import 'package:ctech_flutter_test_app/source/models/github_user_model.dart';
@@ -7,6 +10,7 @@ import 'package:ctech_flutter_test_app/source/repositories/app_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class _FakeAppRepository extends AppRepository {
   _FakeAppRepository() : super(DioClient());
@@ -47,15 +51,31 @@ class _FakeAppRepository extends AppRepository {
 }
 
 void main() {
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
   testWidgets('Users list page shows loaded user', (WidgetTester tester) async {
     final repository = _FakeAppRepository();
 
     await tester.pumpWidget(
       RepositoryProvider<AppRepository>.value(
         value: repository,
-        child: BlocProvider(
-          create: (_) => UsersListCubit(repository),
-          child: const MaterialApp(home: UsersListPage()),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => LocaleCubit(LocaleRepository()),
+            ),
+            BlocProvider(
+              create: (_) => UsersListCubit(repository),
+            ),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: const Locale('en'),
+            home: const UsersListPage(),
+          ),
         ),
       ),
     );

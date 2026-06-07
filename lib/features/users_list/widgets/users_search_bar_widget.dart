@@ -1,4 +1,5 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/l10n/l10n_extension.dart';
 import 'package:flutter/material.dart';
 
 class UsersSearchBarWidget extends StatelessWidget {
@@ -16,9 +17,9 @@ class UsersSearchBarWidget extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         style: const TextStyle(color: AppColors.primaryText),
-        decoration: const InputDecoration(
-          hintText: 'Поиск пользователей...',
-          prefixIcon: Icon(Icons.search, color: AppColors.secondaryText),
+        decoration: InputDecoration(
+          hintText: context.l10n.searchUsersHint,
+          prefixIcon: const Icon(Icons.search, color: AppColors.secondaryText),
         ),
       ),
     );

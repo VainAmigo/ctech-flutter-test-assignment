@@ -1,20 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 abstract final class DateFormatsUtil {
-  
-  static String joinedDate(DateTime date) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return 'Joined ${months[date.month - 1]} ${date.day}, ${date.year}';
+  static String formatDate(DateTime date, Locale locale) {
+    return DateFormat.yMMMd(locale.toLanguageTag()).format(date);
   }
 }
