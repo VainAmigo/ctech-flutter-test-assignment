@@ -1,9 +1,7 @@
+import 'package:ctech_flutter_test_app/components/components.dart';
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/users_list/cubit/users_list_cubit.dart';
-import 'package:ctech_flutter_test_app/features/users_list/widgets/user_list_tile_widget.dart';
-import 'package:ctech_flutter_test_app/features/users_list/widgets/user_skeleton_tile_widget.dart';
-import 'package:ctech_flutter_test_app/features/users_list/widgets/users_search_bar_widget.dart';
-import 'package:ctech_flutter_test_app/source/models/github_user_model.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -106,10 +106,11 @@ class UsersListCubit extends Cubit<UsersListState> {
         ),
       );
     } catch (error) {
+      NetworkErrorMapper.notifyIfNoInternet(error);
       emit(
         state.copyWith(
           status: append ? UsersListStatus.success : UsersListStatus.failure,
-          errorMessage: error.toString(),
+          errorMessage: NetworkErrorMapper.message(error),
         ),
       );
     }
@@ -138,10 +139,11 @@ class UsersListCubit extends Cubit<UsersListState> {
         ),
       );
     } catch (error) {
+      NetworkErrorMapper.notifyIfNoInternet(error);
       emit(
         state.copyWith(
           status: append ? UsersListStatus.success : UsersListStatus.failure,
-          errorMessage: error.toString(),
+          errorMessage: NetworkErrorMapper.message(error),
         ),
       );
     }

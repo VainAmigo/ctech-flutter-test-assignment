@@ -4,15 +4,27 @@ import 'package:ctech_flutter_test_app/source/endpoints/api_endpoints.dart';
 import 'package:ctech_flutter_test_app/source/models/models.dart';
 
 class AppRepository {
-  AppRepository(this._dioClient);
+  AppRepository(
+    this._dioClient, [
+    ConnectivityService? connectivityService,
+  ]) : _connectivity = connectivityService ?? ConnectivityService();
 
   final DioClient _dioClient;
+  final ConnectivityService _connectivity;
+
+  Future<void> _ensureConnected() async {
+    if (!await _connectivity.hasConnection()) {
+      throw const NoInternetException();
+    }
+  }
 
   /// GitHub /users использует cursor-пагинацию через [since] (ID последнего юзера).
   Future<List<GitHubUserModel>> getUsers({
     int? since,
     int perPage = ApiConst.usersPerPage,
   }) async {
+    await _ensureConnected();
+
     final response = await _dioClient.get(
       ApiEndpoints.users,
       queryParameters: {
@@ -35,6 +47,8 @@ class AppRepository {
     required int page,
     int perPage = ApiConst.usersPerPage,
   }) async {
+    await _ensureConnected();
+
     final response = await _dioClient.get(
       ApiEndpoints.searchUsers,
       queryParameters: {
@@ -50,6 +64,8 @@ class AppRepository {
   }
 
   Future<GitHubUserDetailModel> getUserDetail(String login) async {
+    await _ensureConnected();
+
     final response = await _dioClient.get(ApiEndpoints.user(login));
 
     return GitHubUserDetailModel.fromJson(
@@ -62,6 +78,8 @@ class AppRepository {
     required int page,
     int perPage = ApiConst.reposPerPage,
   }) async {
+    await _ensureConnected();
+
     final response = await _dioClient.get(
       reposUrl,
       queryParameters: {

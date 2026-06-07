@@ -66,10 +66,11 @@ class ReposListCubit extends Cubit<ReposListState> {
         ),
       );
     } catch (error) {
+      NetworkErrorMapper.notifyIfNoInternet(error);
       emit(
         state.copyWith(
           status: append ? ReposListStatus.success : ReposListStatus.failure,
-          errorMessage: error.toString(),
+          errorMessage: NetworkErrorMapper.message(error),
         ),
       );
     }

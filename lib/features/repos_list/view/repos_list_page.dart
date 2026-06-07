@@ -1,7 +1,6 @@
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/repos_list/cubit/repos_list_cubit.dart';
-import 'package:ctech_flutter_test_app/features/repos_list/widgets/repo_list_tile_widget.dart';
-import 'package:ctech_flutter_test_app/features/repos_list/widgets/repo_skeleton_tile_widget.dart';
+import 'package:ctech_flutter_test_app/components/components.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

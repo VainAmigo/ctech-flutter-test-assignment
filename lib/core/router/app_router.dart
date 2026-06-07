@@ -1,10 +1,6 @@
-import 'package:ctech_flutter_test_app/core/utils/platform/adaptive_navigation_util.dart';
-import 'package:ctech_flutter_test_app/features/repos_list/cubit/repos_list_cubit.dart';
-import 'package:ctech_flutter_test_app/features/repos_list/view/repos_list_page.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/cubit/user_detail_cubit.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/view/user_detail_page.dart';
-import 'package:ctech_flutter_test_app/features/users_list/view/users_list_page.dart';
-import 'package:ctech_flutter_test_app/source/repositories/app_repository.dart';
+import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,6 +1,7 @@
+import 'package:ctech_flutter_test_app/components/components.dart';
 import 'package:ctech_flutter_test_app/core/core.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
-import 'package:ctech_flutter_test_app/source/models/github_user_detail_model.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
+import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeaderCard extends StatelessWidget {

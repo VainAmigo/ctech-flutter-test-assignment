@@ -9,5 +9,6 @@ abstract final class AppColors {
   static const secondaryText = Color(0xFF8B949E);
   static const accent = Color(0xFF58A6FF);
   static const accentGreen = Color(0xFF3FB950);
+  static const error = Color(0xFFF85149);
   static const skeleton = Color(0xFF21262D);
 }

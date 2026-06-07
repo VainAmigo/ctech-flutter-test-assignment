@@ -12,6 +12,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   dio: ^5.9.2
+  connectivity_plus: ^7.1.1
   meta: ^1.17.0
   flutter_bloc: ^9.1.1
   json_serializable: ^6.14.0

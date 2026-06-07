@@ -1,3 +1,4 @@
+import 'package:ctech_flutter_test_app/core/core.dart';
 import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,10 +22,11 @@ class UserDetailCubit extends Cubit<UserDetailState> {
       final user = await _repository.getUserDetail(login);
       emit(state.copyWith(status: UserDetailStatus.success, user: user));
     } catch (error) {
+      NetworkErrorMapper.notifyIfNoInternet(error);
       emit(
         state.copyWith(
           status: UserDetailStatus.failure,
-          errorMessage: error.toString(),
+          errorMessage: NetworkErrorMapper.message(error),
         ),
       );
     }

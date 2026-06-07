@@ -1,5 +1,5 @@
-import 'package:ctech_flutter_test_app/core/theme/app_colors.dart';
-import 'package:ctech_flutter_test_app/features/user_detail/widgets/section_card.dart';
+import 'package:ctech_flutter_test_app/core/core.dart';
+import 'package:ctech_flutter_test_app/features/features.dart';
 import 'package:flutter/material.dart';
 
 class StatCard extends StatelessWidget {

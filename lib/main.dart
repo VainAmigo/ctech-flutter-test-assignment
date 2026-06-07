@@ -5,18 +5,28 @@ import 'package:ctech_flutter_test_app/source/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 void main() {
   final dioClient = DioClient();
-  final repository = AppRepository(dioClient);
+  final connectivityService = ConnectivityService();
+  final repository = AppRepository(dioClient, connectivityService);
 
-  runApp(GitHubUsersApp(repository: repository));
+  runApp(
+    GitHubUsersApp(
+      repository: repository,
+      connectivityService: connectivityService,
+    ),
+  );
 }
 
 class GitHubUsersApp extends StatelessWidget {
-  const GitHubUsersApp({super.key, required this.repository});
+  const GitHubUsersApp({
+    super.key,
+    required this.repository,
+    required this.connectivityService,
+  });
 
   final AppRepository repository;
+  final ConnectivityService connectivityService;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +35,15 @@ class GitHubUsersApp extends StatelessWidget {
       child: BlocProvider<UsersListCubit>(
         create: (_) => UsersListCubit(repository),
         child: MaterialApp(
+          scaffoldMessengerKey: AppMessenger.messengerKey,
           onGenerateRoute: AppRouter.onGenerateRoute,
           home: const UsersListPage(),
           title: 'GitHub Users',
           theme: AppTheme.dark,
+          builder: (context, child) => ConnectivityListener(
+            connectivityService: connectivityService,
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       ),
     );
